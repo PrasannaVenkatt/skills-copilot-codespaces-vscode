@@ -26,3 +26,11 @@ app.post('/comments', (req, res) => {
         const comments = JSON.parse(data);
         const newComment = {
             id: comments.length + 1,
+            name: req.body.name,
+            comment: req.body.comment,
+            date: new Date()
+        };
+    });
+});
+
+
