@@ -1,36 +1,24 @@
-//create web server
+// create web server
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors');
 const port = 3000;
-app.use(cors());
+const bodyParser = require('body-parser');
+
+// create a response
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+// use body-parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-//get all comments
-app.get('/comments', (req, res) => {
-    fs.readFile('./comments.json', (err, data) => {
-        if (err) throw err;
-        res.send(data);
-    });
-});
-
-//add comment
+// create a route for POST request
 app.post('/comments', (req, res) => {
-    fs.readFile('./comments.json', (err, data) => {
-        if (err) throw err;
-
-        const comments = JSON.parse(data);
-        const newComment = {
-            id: comments.length + 1,
-            name: req.body.name,
-            comment: req.body.comment,
-            date: new Date()
-        };
-    });
+  console.log(req.body);
+  res.send('POST request to the homepage');
 });
 
-
+// start the server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
